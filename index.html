@@ -1,791 +1,686 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ITI Anantnag — ICTSM | Information Communication Technology Systems & Maintenance</title>
-  <meta name="description" content="ITI Anantnag — Trade: ICTSM. Course overview, syllabus (Basics of Electricity), projects, team, resources and contact." />
-  <meta property="og:title" content="ITI Anantnag — ICTSM" />
-  <meta property="og:description" content="Information Communication Technology Systems & Maintenance — syllabus, labs, projects and team." />
-  <meta name="theme-color" content="#0B63FF" />
-  <!-- Fonts: Poppins, Inter, Roboto -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;800&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <!--
+    ICTSM Trade Website — Repository: ictsm-trade-website
+    Built to be: clean, spacious, readable at night, responsive (phone/tablet/laptop/desktop),
+    using Flexbox/Grid, fluid layouts, sticky navbar, hamburger menu, section highlighting,
+    reusable cards/components, subtle rounded shadows, AOS (fade/slide), GSAP (lift on scroll),
+    and a bold welcome banner. Developed by Peer Saqib.
+
+    Fonts: Poppins, Inter, Roboto, SF Pro (via system stack & Google Fonts)
+    Color palette (dark-friendly, with good contrast):
+      - Base: #0f172a (slate-900)
+      - Surface: #111827 (gray-900)
+      - Card: #1f2937 (gray-800)
+      - Text: #e5e7eb (gray-200)
+      - Muted: #94a3b8 (slate-400)
+      - Primary: #38bdf8 (sky-400)
+      - Primary-strong: #0ea5e9 (sky-500)
+      - Accent: #a78bfa (violet-400)
+      - Success: #22c55e (green-500)
+
+    NOTE: For React builds, swap animations to Framer Motion. In this vanilla HTML version, AOS + GSAP are used.
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="ITI Anantnag • ICTSM (Information & Communication Technology System Maintenance) trade website: syllabus, roles, resources, and contact." />
+  <title>ICTSM • ITI Anantnag</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
   <!-- AOS (Animate On Scroll) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-  <!-- Icons (Lucide) -->
-  <script src="https://unpkg.com/lucide@0.256.0/dist/lucide.min.js" defer></script>
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
-    /* -------------------------
-       Design tokens (CSS variables)
-       ------------------------- */
-    :root{
-      --font-sans: "Inter", "Poppins", "Roboto", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      --ff-heading: "Poppins", var(--font-sans);
-      --space-xs: 0.25rem;
-      --space-sm: 0.5rem;
-      --space-md: 1rem;
-      --space-lg: 1.5rem;
-      --space-xl: 2.5rem;
+    :root {
+      --bg: #0f172a;
+      --surface: #111827;
+      --card: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-strong: #0ea5e9;
+      --accent: #a78bfa;
+      --success: #22c55e;
 
-      /* Light theme colors */
-      --color-primary: #0B63FF;
-      --color-accent: #00C1A7;
-      --color-dark: #0F1724;
-      --color-bg: #F7FAFC;
-      --color-surface: #FFFFFF;
-      --color-muted: #94A3B8;
-      --color-text: #0F1724;
-      --radius-lg: 1rem;
-      --shadow-sm: 0 6px 18px rgba(15,23,36,0.06);
-      --shadow-md: 0 12px 30px rgba(15,23,36,0.09);
-      --content-max: 1200px;
-      --glass: rgba(255,255,255,0.6);
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --shadow-soft: 0 6px 18px rgba(0,0,0,0.28);
+      --maxw: 1200px;
+      --spacing-1: clamp(8px, 1vw, 14px);
+      --spacing-2: clamp(14px, 2vw, 22px);
+      --spacing-3: clamp(18px, 3vw, 36px);
+      --spacing-4: clamp(24px, 4vw, 52px);
     }
 
-    /* Dark mode tokens */
-    :root[data-theme="dark"]{
-      --color-bg: #071029;
-      --color-surface: #0b1220;
-      --color-text: #E6EEF8;
-      --color-muted: #9AAFC8;
-      --shadow-sm: 0 8px 24px rgba(0,0,0,0.5);
-      --glass: rgba(10,12,18,0.5);
+    /* Global reset + typography */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, Poppins, Roboto, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% 10%, #0b1228 0%, var(--bg) 60%, #0a0f22 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* -------------------------
-       Global styles
-       ------------------------- */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--font-sans);
-      background:linear-gradient(180deg,var(--color-bg),rgba(0,0,0,0)) ;
-      color:var(--color-text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.6;
-      -webkit-tap-highlight-color: transparent;
-      transition:background .25s ease, color .25s ease;
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { color: var(--primary-strong); }
+
+    .container {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--spacing-2);
     }
 
-    a{color:var(--color-primary); text-decoration:none}
-    .container{max-width:var(--content-max); margin:0 auto; padding:0 1rem}
+    /* Sticky Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: rgba(17, 24, 39, 0.6);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-2);
+      padding: var(--spacing-2) 0;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: 0.2px;
+    }
+    .brand .logo {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: var(--shadow-soft);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: var(--spacing-2);
+    }
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--text);
+    }
+    .nav-links a.active {
+      background: rgba(56, 189, 248, 0.16);
+      color: var(--primary);
+      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
+    }
+    .hamburger {
+      display: none;
+      width: 36px; height: 36px; border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(17,24,39,0.4);
+      color: var(--text);
+      align-items: center; justify-content: center;
+    }
+    .hamburger:hover { border-color: rgba(56, 189, 248, 0.6); color: var(--primary); }
 
-    /* Skip link for accessibility */
-    .skip-link{
-      position:fixed; left:1rem; top:1rem; transform:translateY(-120%);
-      background:var(--color-primary); color:white; padding:.5rem .75rem; border-radius:.5rem;
-      z-index:9999; transition:transform .18s ease;
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      padding: var(--spacing-2);
+      gap: 10px;
+      background: rgba(17,24,39,0.6);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     }
-    .skip-link:focus{transform:translateY(0%)}
+    .mobile-menu a {
+      padding: 12px;
+      border-radius: 10px;
+      color: var(--text);
+      background: rgba(31,41,55,0.6);
+      border: 1px solid rgba(148,163,184,0.25);
+    }
+    .mobile-menu a.active { border-color: rgba(56,189,248,0.6); color: var(--primary); }
 
-    /* -------------------------
-       Navbar
-       ------------------------- */
-    header{
-      position:sticky; top:0; z-index:999;
-      backdrop-filter: blur(6px);
-      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
-      border-bottom:1px solid rgba(0,0,0,0.04);
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      padding: var(--spacing-4) 0 var(--spacing-4);
+      overflow: hidden;
     }
-    header[data-theme="dark"]{
-      background:linear-gradient(180deg, rgba(9,12,18,0.7), rgba(9,12,18,0.55));
-      border-bottom:1px solid rgba(255,255,255,0.03);
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--spacing-3);
+      align-items: center;
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem 0;
+    .hero-card {
+      background: linear-gradient(180deg, rgba(31,41,55,0.85), rgba(17,24,39,0.85));
+      border: 1px solid rgba(148,163,184,0.22);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--spacing-3);
     }
-    .brand{display:flex; align-items:center; gap:.75rem; font-weight:700; font-family:var(--ff-heading); font-size:1.05rem}
-    .nav-links{display:flex; gap:.5rem; align-items:center}
-    nav a{padding:.5rem .75rem; border-radius:.6rem; font-weight:600; font-size:.95rem}
-    nav a.active{background:var(--color-primary); color:white; box-shadow:var(--shadow-sm)}
-    .nav-actions{display:flex; gap:.5rem; align-items:center}
-
-    /* Hamburger */
-    .burger{display:none; background:none; border:0; padding:.4rem; border-radius:.5rem}
-    .nav-mobile{display:none}
-
-    /* -------------------------
-       Hero
-       ------------------------- */
-    .hero{
-      min-height:78vh;
-      display:grid;
-      grid-template-columns: 1fr;
-      align-items:center;
-      padding:3.5rem 0;
-      gap:1.5rem;
+    .hero h1 {
+      font-family: Poppins, Inter, Roboto, sans-serif;
+      font-weight: 800;
+      margin: 0 0 10px;
+      font-size: clamp(32px, 5vw, 62px);
+      letter-spacing: -0.02em;
     }
-    .hero-grid{display:grid; grid-template-columns: 1fr; gap:2rem; align-items:center}
-    .hero-card{
-      background:var(--color-surface);
-      padding:2rem;
-      border-radius:var(--radius-lg);
-      box-shadow:var(--shadow-md);
-      max-width:900px;
+    .hero p {
+      color: var(--muted);
+      margin-top: 8px;
     }
-    .hero h1{font-family:var(--ff-heading); margin:0; font-size:clamp(1.8rem, 4vw, 3.6rem); line-height:1.02}
-    .hero .sub{margin-top:.5rem; color:var(--color-muted); font-size:1.05rem}
-    .hero .ctas{margin-top:1.25rem; display:flex; gap:.75rem; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; align-items:center; gap:.6rem; padding:.7rem 1rem; border-radius:.75rem;
-      font-weight:700; cursor:pointer; border:0; box-shadow:var(--shadow-sm); background:var(--color-primary); color:white;
-      transform:translateY(0); transition:transform .18s ease, box-shadow .18s ease;
+    .hero-cta {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      margin-top: var(--spacing-2);
     }
-    .btn.secondary{background:transparent; color:var(--color-text); border:1px solid rgba(0,0,0,0.06)}
-    .btn:hover{transform:translateY(-4px)}
-    .hero-visual{
-      display:flex; align-items:center; justify-content:center;
-      gap:1rem; flex-direction:column;
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.3);
+      background: rgba(31,41,55,0.6);
+      color: var(--text);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
     }
-
-    .engg{
-      font-family:var(--ff-heading); font-weight:900; font-size: clamp(2rem, 6vw, 4.5rem);
-      color:transparent;
-      -webkit-text-stroke:2px var(--color-primary);
-      -webkit-background-clip:text;
-      background-clip:text;
-      position:relative;
-      display:inline-block;
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(56,189,248,0.15);
+      border-color: rgba(56,189,248,0.5);
     }
-    .engg .fill{
-      position:absolute; left:0; top:0; width:0%; height:100%; overflow:hidden; color:var(--color-primary);
-      -webkit-text-stroke:0;
-      transition:width .6s ease;
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(167,139,250,0.2));
+      border: 1px solid rgba(56,189,248,0.5);
+      color: var(--primary);
     }
 
-    /* -------------------------
-       Sections
-       ------------------------- */
-    section{padding:3rem 0}
-    .section-header{display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem}
-    .section-title{font-family:var(--ff-heading); font-size:1.25rem}
-    .card{
-      background:var(--color-surface); padding:1rem; border-radius:.9rem; box-shadow:var(--shadow-sm);
+    /* Section structure */
+    section {
+      padding: var(--spacing-4) 0;
+    }
+    .section-title {
+      font-family: Poppins, Inter, Roboto, sans-serif;
+      font-weight: 700;
+      font-size: clamp(24px, 3.2vw, 36px);
+      margin-bottom: var(--spacing-2);
+    }
+    .section-lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin-bottom: var(--spacing-3);
     }
 
-    /* Course grid */
-    .grid{display:grid; gap:1rem}
-    .grid.courses{grid-template-columns: repeat(1,1fr)}
-    .grid.projects{grid-template-columns: repeat(1,1fr)}
-
-    /* Team */
-    .team-grid{display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))}
-    .team-card{display:flex; gap:1rem; align-items:center; padding:1rem; border-radius: .9rem}
-    .avatar{
-      width:64px; height:64px; border-radius:12px; flex-shrink:0; background:linear-gradient(135deg,var(--color-primary),var(--color-accent));
-      display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:1.05rem;
-      box-shadow:var(--shadow-sm)
+    /* Cards (reusable) */
+    .grid {
+      display: grid;
+      gap: var(--spacing-2);
     }
-    .role-badge{display:inline-block; padding:.25rem .5rem; border-radius:.6rem; font-size:.8rem; font-weight:700; background:rgba(11,99,255,0.12); color:var(--color-primary)}
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(148,163,184,0.22);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: var(--spacing-2);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .card h3 {
+      font-weight: 600;
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .card p { color: var(--muted); margin: 0; }
 
-    /* Syllabus table */
-    table{width:100%; border-collapse:collapse; margin-top:1rem}
-    th, td{padding:.65rem; text-align:left; border-bottom:1px solid rgba(0,0,0,0.04)}
-    :root[data-theme="dark"] th, :root[data-theme="dark"] td{border-bottom:1px solid rgba(255,255,255,0.03)}
-
-    /* Resources & cards */
-    .resource-grid{display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:1rem}
+    /* Roles list */
+    .roles {
+      display: grid;
+      gap: var(--spacing-2);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 640px) { .roles { grid-template-columns: 1fr; } }
+    .role-item {
+      background: var(--card);
+      border: 1px solid rgba(148,163,184,0.22);
+      border-radius: var(--radius);
+      padding: var(--spacing-2);
+      box-shadow: var(--shadow-soft);
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .role-badge {
+      min-width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: var(--shadow-soft);
+    }
 
     /* Footer */
-    footer{padding:2rem 0; border-top:1px solid rgba(0,0,0,0.04); margin-top:2rem}
-    .footer-inner{display:flex; flex-direction:column; gap:.75rem; align-items:center; justify-content:center}
-    .copyright{opacity:.75; font-size:.95rem}
+    footer {
+      padding: var(--spacing-3) 0 var(--spacing-4);
+      background: rgba(17,24,39,0.6);
+      border-top: 1px solid rgba(148,163,184,0.2);
+      margin-top: var(--spacing-4);
+    }
+    .footer-grid {
+      display: grid;
+      gap: var(--spacing-2);
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+    @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-meta {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .contact {
+      display: flex; flex-direction: column; gap: 8px;
+      background: var(--card);
+      border: 1px solid rgba(148,163,184,0.22);
+      border-radius: var(--radius);
+      padding: var(--spacing-2);
+      box-shadow: var(--shadow-soft);
+    }
+    .contact a.whatsapp {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+    .contact a.whatsapp:hover { transform: translateY(-1px); }
 
-    /* Contact form */
-    .contact-grid{display:grid; gap:1rem; grid-template-columns:1fr}
-    .input, textarea{width:100%; padding:.8rem; border-radius:.6rem; border:1px solid rgba(0,0,0,0.06); background:transparent; color:var(--color-text)}
-    textarea{min-height:120px; resize:vertical}
-
-    /* Small screens */
-    @media (max-width:900px){
-      .nav-links{display:none}
-      .burger{display:inline-flex}
-      .nav-mobile{display:block}
-      .grid.courses{grid-template-columns: repeat(1,1fr)}
+    /* Section highlight on scroll (active link) */
+    .highlight-nav a.active {
+      background: rgba(56, 189, 248, 0.16);
+      color: var(--primary);
+      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
     }
 
-    /* Medium and up */
-    @media (min-width:900px){
-      .hero-grid{grid-template-columns: 1fr 420px}
-      .grid.courses{grid-template-columns: repeat(2,1fr)}
-      .grid.projects{grid-template-columns: repeat(2,1fr)}
+    /* ENGG-like subtle animated label */
+    .engg-tag {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(167, 139, 250, 0.18);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      color: #d6bcfa;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      animation: floaty 4s ease-in-out infinite;
     }
-    @media (min-width:1200px){
-      .grid.courses{grid-template-columns: repeat(3,1fr)}
-      .hero{min-height:82vh}
-    }
-
-    /* Reduced motion preference */
-    @media (prefers-reduced-motion: reduce){
-      *{transition:none!important; animation:none!important}
+    @keyframes floaty {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <!-- Skip to content for accessibility -->
-  <a href="#main" class="skip-link">Skip to content</a>
 
-  <!-- Header / Navbar -->
-  <header id="site-header" aria-label="Main header" data-theme="">
-    <div class="container nav" role="navigation" aria-label="Main navigation">
-      <div class="brand" aria-hidden="false">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#g)"></rect>
-          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0B63FF"/><stop offset="1" stop-color="#00C1A7"/></linearGradient></defs>
-        </svg>
-        <span>ITI Anantnag — <span style="opacity:.8">ICTSM</span></span>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>ICTSM • ITI Anantnag</span>
       </div>
-
-      <div class="nav-links" role="menubar" aria-label="Primary">
-        <a href="#home" class="nav-link" data-target="home">Home</a>
-        <a href="#about" class="nav-link" data-target="about">About</a>
-        <a href="#syllabus" class="nav-link" data-target="syllabus">Syllabus</a>
-        <a href="#projects" class="nav-link" data-target="projects">Projects</a>
-        <a href="#team" class="nav-link" data-target="team">Team</a>
-        <a href="#resources" class="nav-link" data-target="resources">Resources</a>
-        <a href="#contact" class="nav-link" data-target="contact">Contact</a>
+      <div class="nav-links highlight-nav" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About ICTSM</a>
+        <a href="#syllabus">Syllabus</a>
+        <a href="#roles">Team</a>
+        <a href="#resources">Resources</a>
+        <a href="#contact">Contact</a>
       </div>
-
-      <div class="nav-actions">
-        <button id="theme-toggle" class="btn secondary" aria-pressed="false" title="Toggle dark mode">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Dark
-        </button>
-        <button class="btn" id="apply-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Apply</button>
-
-        <button class="burger" id="burger" aria-expanded="false" aria-label="Toggle menu">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">☰</button>
     </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About ICTSM</a>
+      <a href="#syllabus">Syllabus</a>
+      <a href="#roles">Team</a>
+      <a href="#resources">Resources</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-    <!-- Mobile nav -->
-    <div id="mobile-nav" class="nav-mobile" style="display:none; padding: .5rem 1rem">
-      <div class="container card" style="display:flex; flex-direction:column; gap:.5rem;">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#syllabus" class="nav-link">Syllabus</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#team" class="nav-link">Team</a>
-        <a href="#resources" class="nav-link">Resources</a>
-        <a href="#contact" class="nav-link">Contact</a>
+  <!-- Hero Banner -->
+  <header id="home" class="hero">
+    <div class="container hero-inner" data-aos="fade-up">
+      <div class="hero-card">
+        <div class="engg-tag">ENGG.</div>
+        <h1><strong>Welcome ICTSM website</strong></h1>
+        <p>
+          Developed by Peer Saqib. Clean, responsive, and night-friendly — built for Phone, Tablet, Laptop, and big Desktop screens with fluid layouts, Grid/Flexbox, and smooth motion.
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#about">Explore ICTSM</a>
+          <a class="btn" href="#syllabus">View Syllabus</a>
+          <a class="btn" href="#roles">Meet the Team</a>
+        </div>
+      </div>
+      <div class="hero-card" data-aos="fade-left">
+        <h3 style="margin-top:0;">Highlights</h3>
+        <ul style="color: var(--muted); padding-left: 18px; margin-top: 8px;">
+          <li>Lots of white space, simple fonts (Poppins, Inter, Roboto, SF Pro), consistent palette</li>
+          <li>Rounded & soft shadows, professional look, better readability at night</li>
+          <li>Sticky navbar, hamburger menu, section highlighting</li>
+          <li>AOS fade-in, GSAP lift effects, reusable cards and components</li>
+          <li>Banner on open: “Welcome ICTSM website” + “Developed by Peer Saqib”</li>
+        </ul>
       </div>
     </div>
   </header>
 
-  <main id="main">
-    <!-- HERO -->
-    <section id="home" class="hero container" aria-labelledby="hero-heading">
-      <div class="hero-grid" data-aos="fade-up">
-        <div class="hero-card">
-          <div style="display:flex; flex-direction:column; gap:.6rem">
-            <div style="display:flex; align-items:center; gap:.6rem">
-              <span class="role-badge" aria-hidden="true">Trade: ICTSM</span>
-              <small style="color:var(--color-muted)">Information Communication Technology Systems & Maintenance</small>
-            </div>
-            <h1 id="hero-heading">WELCOME ICTSM WEBSITE</h1>
-            <div class="sub">A student-first resource for syllabus, labs, projects and practical skills — built for hands-on learning and future-ready careers.</div>
-
-            <div class="ctas">
-              <button class="btn" onclick="document.getElementById('syllabus').scrollIntoView({behavior:'smooth'})">View Syllabus</button>
-              <button class="btn secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact / Apply</button>
-              <button class="btn secondary" id="download-syllabus">Download Syllabus</button>
-            </div>
-
-            <div style="margin-top:1rem; color:var(--color-muted); font-size:.95rem">
-              <strong>Labs:</strong> Electronics bench, Networking lab, System maintenance lab, IoT corner — weekly practicals, assessments and certificate.
-            </div>
-          </div>
+  <!-- About ICTSM -->
+  <section id="about">
+    <div class="container" data-aos="fade-up">
+      <h2 class="section-title">Information & Communication Technology System Maintenance</h2>
+      <p class="section-lead">
+        ICTSM is a two-year engineering trade under the Craftsmen Training Scheme (CTS), NSQF Level 4, focusing on installation, testing, maintenance, and repair of ICT systems and peripherals. It includes trade theory, trade practicals, assessment criteria, and a structured syllabus aligned to the IT & ITeS sector.
+      </p>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Training system</h3>
+          <p>
+            The curriculum provides competency-based modules, learning outcomes, assessment criteria, and detailed tool/equipment lists to ensure practical readiness across ICT hardware, software, and diagnostics.
+          </p>
         </div>
-
-        <div class="hero-visual" aria-hidden="false" data-aos="zoom-in">
-          <!-- Animated ENGG. -->
-          <div style="text-align:center;">
-            <div class="engg" id="engg">ENGG.
-              <div class="fill" id="engg-fill">ENGG.</div>
-            </div>
-            <div style="margin-top:.6rem; color:var(--color-muted)">Hands-on. Practical. Employable.</div>
-          </div>
-
-          <!-- Quick stats cards -->
-          <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem; margin-top:1rem; width:100%;">
-            <div class="card" style="padding:.85rem; text-align:center">
-              <div style="font-size:1.2rem; font-weight:800">9</div>
-              <div style="font-size:.85rem; color:var(--color-muted)">Core Modules</div>
-            </div>
-            <div class="card" style="padding:.85rem; text-align:center">
-              <div style="font-size:1.2rem; font-weight:800">120+</div>
-              <div style="font-size:.85rem; color:var(--color-muted)">Lab Hours / Term</div>
-            </div>
-          </div>
+        <div class="card">
+          <h3>Job roles</h3>
+          <p>
+            Graduates can install, operate, test, and maintain electronic equipment, computers, peripherals, and measuring instruments, supporting ICT infrastructure in varied environments.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Study material</h3>
+          <p>
+            BharatSkills hosts ICTSM trade theory, trade practicals (1st & 2nd year), workshop calculation & science, mock tests, and e-learning resources mapped to the latest syllabus versions.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">About ICTSM</h2>
-        <div style="color:var(--color-muted)">Mission & Vision</div>
+  <!-- Syllabus (with basics of electricity portion) -->
+  <section id="syllabus">
+    <div class="container" data-aos="fade-up">
+      <h2 class="section-title">Syllabus overview</h2>
+      <p class="section-lead">
+        The ICTSM syllabus includes foundational electrical concepts, electronic components, PC assembly and troubleshooting, networking basics, operating systems, preventive maintenance, diagnostics, and safety practices, structured over two years with defined learning outcomes and assessments.
+      </p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Basics of electricity</h3>
+          <p>
+            Core topics commonly covered include safety, units and measurements, Ohm’s law, series/parallel circuits, power and energy, AC/DC fundamentals, wiring best practices, and use of basic instruments (multimeter). These underpin later modules in electronics, PC hardware, and system maintenance.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Trade theory & practical</h3>
+          <p>
+            Progressive modules blend theory with hands-on tasks across hardware assembly, OS installation, preventive maintenance, peripherals, networking, and troubleshooting, supported by structured assessment criteria and tool/equipment lists.
+          </p>
+        </div>
       </div>
 
-      <div class="card" style="padding:1.25rem">
-        <p style="margin-top:0; font-size:1.02rem; line-height:1.7">
-          <strong>Information Communication Technology Systems & Maintenance (ICTSM)</strong> is a vocational trade focused on equipping students with the practical skills needed to install, maintain, and troubleshoot IT systems and networks.
-          Students learn hardware repair, OS installation, LAN/WAN basics, electrical fundamentals for IT setups, preventive maintenance, and basic security practices. Our mission is to make graduates job-ready for roles in IT support, network maintenance, and entry-level engineering positions.
+      <div class="card" style="margin-top: var(--spacing-2);" data-aos="fade-in">
+        <h3>Suggested structure for your site</h3>
+        <p style="color: var(--muted);">
+          Year-wise pages with topics, outcomes, practical tasks, and checklists aligned to official ICTSM curriculum ensure clarity and consistency for learners and admins. You can deep-link to BharatSkills materials for detailed modules and practice.
         </p>
+      </div>
+    </div>
+  </section>
 
-        <div style="display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap">
-          <div class="card" style="flex:1; min-width:220px">
-            <strong>Who should enroll?</strong>
-            <p style="margin:6px 0; color:var(--color-muted)">Students who like hands-on work, problem solving, and want entry-level IT roles.</p>
+  <!-- Team roles -->
+  <section id="roles">
+    <div class="container" data-aos="fade-up">
+      <h2 class="section-title">Team roles & responsibilities</h2>
+      <p class="section-lead">
+        Clear roles keep the site reliable, up-to-date, and welcoming. Here’s a proposed structure mapped to your classmates.
+      </p>
+      <div class="roles">
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Peer Saqib — Lead developer & site maintainer</h3>
+            <p><strong>Scope:</strong> Codebase ownership, CI/CD, performance, accessibility, animations, responsive layouts, release notes, and repository governance.</p>
           </div>
-          <div class="card" style="flex:1; min-width:220px">
-            <strong>Career outcomes</strong>
-            <p style="margin:6px 0; color:var(--color-muted)">IT Technician, Field Support Engineer, Network Installer, System Maintenance Technician, Helpdesk Engineer.</p>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Saqib (Admin) — Content admin & compliance</h3>
+            <p><strong>Scope:</strong> Homepage announcements, syllabus updates, exam schedules, content QA, alignment with ICTSM CTS guidelines, and moderation.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Hamid — Resources & documentation lead</h3>
+            <p><strong>Scope:</strong> Collect study materials, practical guides, lab checklists, and link BharatSkills & official curriculum resources.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Huxaif — Design & UI/UX</h3>
+            <p><strong>Scope:</strong> Visual hierarchy, typography, spacing, color consistency, components library, and night readability audits.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Shakif — QA & accessibility</h3>
+            <p><strong>Scope:</strong> Cross-device testing, media queries, keyboard navigation, contrast checks, and bug tracking.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Mushraf — Backend & forms</h3>
+            <p><strong>Scope:</strong> Contact form handling, mailing services, data validation, performance logs, secure endpoints.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Irfan — DevOps & deployment</h3>
+            <p><strong>Scope:</strong> Hosting, SSL, caching/CDN, uptime monitoring, backups, and environment configs.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Sheebu — Events & announcements</h3>
+            <p><strong>Scope:</strong> Notices, lab schedules, workshops, and timely homepage banners.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Sakia — Social & outreach</h3>
+            <p><strong>Scope:</strong> Community updates, WhatsApp broadcast, social post assets, and enquiries coordination.</p>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-badge" aria-hidden="true"></div>
+          <div>
+            <h3>Abiroo — Content editor</h3>
+            <p><strong>Scope:</strong> Proofreading, syllabus summaries, glossary, and student guides.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SYLLABUS -->
-    <section id="syllabus" class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">Syllabus — Highlights</h2>
-        <div style="color:var(--color-muted)">Core modules & weekly breakdown (Basics of Electricity sample)</div>
-      </div>
-
-      <div class="card">
-        <h3 style="margin:0 0 .5rem 0">Basics of Electricity (Sample Module)</h3>
-        <p style="margin:0 0 1rem 0; color:var(--color-muted)">A 4-week practical module introducing electrical fundamentals for ICT equipment and safe wiring practices.</p>
-
-        <table aria-describedby="syllabus-desc">
-          <caption id="syllabus-desc" style="caption-side:top; text-align:left; font-weight:700; margin-bottom:.35rem">Weekly breakdown</caption>
-          <thead>
-            <tr><th>Week</th><th>Topics</th><th>Lab / Practical</th><th>Assessment</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Week 1</td><td>Voltage, Current, Resistance — Ohm's Law; Basic circuit symbols</td><td>Measure V, I, R using a multimeter; build simple series circuit on breadboard</td><td>Quiz + Practical demo</td></tr>
-            <tr><td>Week 2</td><td>Series & Parallel circuits; Power (P = VI); Simple calculations</td><td>Construct series & parallel circuits; measure power; compare results</td><td>Worksheet + Lab mark</td></tr>
-            <tr><td>Week 3</td><td>AC vs DC; Rectification basics; capacitors & inductors intro</td><td>Observe AC waveform (simulator); practice DC power supply usage</td><td>Lab report</td></tr>
-            <tr><td>Week 4</td><td>Basic tools: multimeter, soldering iron, breadboard; Safety & grounding</td><td>Solder a small connector; earthing demo; troubleshoot simple faults</td><td>Practical test & safety checklist</td></tr>
-          </tbody>
-        </table>
-
-        <div style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap">
-          <button class="btn" onclick="downloadSyllabus()">Download Printable Syllabus</button>
-          <button class="btn secondary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Labs & Projects</button>
-        </div>
-      </div>
-
-      <div style="margin-top:1.25rem; display:grid; gap:1rem;" data-aos="fade-up">
-        <h3 style="margin:0">ICTSM Core Modules (overview)</h3>
-        <div class="grid courses" style="margin-top:.6rem">
-          <div class="card">
-            <h4>Hardware Fundamentals</h4>
-            <p style="margin:.35rem 0; color:var(--color-muted)">PC parts, assembly, BIOS, diagnostics, preventive maintenance.</p>
-          </div>
-          <div class="card">
-            <h4>Network Basics</h4>
-            <p style="margin:.35rem 0; color:var(--color-muted)">LAN, WAN, cabling, switches, routers, IP addressing, subnetting basics.</p>
-          </div>
-          <div class="card">
-            <h4>OS Installation & Maintenance</h4>
-            <p style="margin:.35rem 0; color:var(--color-muted)">Windows & Linux basics, drivers, imaging, backup and restore.</p>
-          </div>
-          <div class="card">
-            <h4>Troubleshooting & Preventive Maintenance</h4>
-            <p style="margin:.35rem 0; color:var(--color-muted)">Fault diagnosis workflow, ticketing basics, scheduled maintenance.</p>
-          </div>
-          <div class="card">
-            <h4>ICT Security Fundamentals</h4>
-            <p style="margin:.35rem 0; color:var(--color-muted)">Basic security hygiene, account safety, basic firewalls & VLAN concept.</p>
-          </div>
-          <div class="card">
-            <h4>IoT Intro & Cloud Basics</h4>
-            <p style="margin:.35rem 0; color:var(--color-muted)">Simple MCU projects, cloud service overview, data flow basics.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">Projects & Labs</h2>
-        <div style="color:var(--color-muted)">Student project gallery & lab snapshots</div>
-      </div>
-
-      <div class="grid projects">
+  <!-- Resources -->
+  <section id="resources">
+    <div class="container" data-aos="fade-up">
+      <h2 class="section-title">Resources & study materials</h2>
+      <p class="section-lead">
+        Use official CTS curriculum and BharatSkills modules for trade theory, trade practicals, workshop calculation & science, and mock tests to prepare effectively.
+      </p>
+      <div class="grid cols-3">
         <div class="card">
-          <h4>Arduino Temperature Logger</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Sensor reading, serial log, dashboard prototype (IoT).</p>
+          <h3>CTS curriculum (ICTSM)</h3>
+          <p>Curriculum PDF: duration, learning outcomes, assessment criteria, trade tools, and syllabus breakdown.</p>
         </div>
         <div class="card">
-          <h4>PC Build & Diagnostics</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Assemble a desktop, install OS, and run diagnostics.</p>
+          <h3>BharatSkills portal</h3>
+          <p>Trade Theory & Practical (Year 1 & 2), e-learning, question banks, and mock tests.</p>
         </div>
         <div class="card">
-          <h4>Small Office LAN Setup</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Cabling, switch config, DHCP setup and troubleshooting.</p>
-        </div>
-        <div class="card">
-          <h4>PCB Prototyping (Beginner)</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Solder skills and tiny PCB assembly.</p>
+          <h3>Skills acquired</h3>
+          <p>Install, test, repair electronic equipment, PCs, peripherals; operate and maintain measuring instruments.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- TEAM -->
-    <section id="team" class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">Classmates & Roles</h2>
-        <div style="color:var(--color-muted)">Team roles for website & course delivery</div>
-      </div>
-
-      <div class="team-grid">
-        <!-- Hamid -->
-        <div class="team-card card">
-          <div class="avatar">H</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Hamid</strong> <span class="role-badge">Content</span>
-            </div>
-            <div style="color:var(--color-muted)">Content Writer & Syllabus Editor — writes module descriptions, lab instructions & lesson copy.</div>
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container" data-aos="fade-up">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-lead">Reach out for updates, contributions, or queries about the ICTSM trade website.</p>
+      <div class="footer-grid">
+        <div class="contact">
+          <div><strong>Email:</strong> <a href="mailto:imshahsaqib@gmail.com">imshahsaqib@gmail.com</a></div>
+          <a class="whatsapp" href="https://wa.me/9622959387" target="_blank" rel="noopener">
+            <span>WhatsApp</span> • <strong>9622959387</strong>
+          </a>
+          <div style="color: var(--muted); font-size: 14px;">
+            Banner: “Welcome ICTSM website” • “Developed by Peer Saqib”
           </div>
         </div>
-
-        <!-- Huxaif -->
-        <div class="team-card card">
-          <div class="avatar">Hu</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Huxaif</strong> <span class="role-badge">UI/UX</span>
-            </div>
-            <div style="color:var(--color-muted)">UI/UX Designer — Figma mockups, spacing and color system.</div>
-          </div>
-        </div>
-
-        <!-- Shakif -->
-        <div class="team-card card">
-          <div class="avatar">S</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Shakif</strong> <span class="role-badge">Frontend</span>
-            </div>
-            <div style="color:var(--color-muted)">Frontend Developer — responsive UI, animations (AOS/GSAP).</div>
-          </div>
-        </div>
-
-        <!-- Mushraf -->
-        <div class="team-card card">
-          <div class="avatar">M</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Mushraf</strong> <span class="role-badge">Backend</span>
-            </div>
-            <div style="color:var(--color-muted)">Backend — contact forms, file downloads, data handling.</div>
-          </div>
-        </div>
-
-        <!-- Irfan -->
-        <div class="team-card card">
-          <div class="avatar">I</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Irfan</strong> <span class="role-badge">QA</span>
-            </div>
-            <div style="color:var(--color-muted)">QA & Accessibility — cross-device testing, accessibility audits.</div>
-          </div>
-        </div>
-
-        <!-- Sheebu -->
-        <div class="team-card card">
-          <div class="avatar">Sh</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Sheebu</strong> <span class="role-badge">Media</span>
-            </div>
-            <div style="color:var(--color-muted)">Media & Photographer — lab photos and image optimization.</div>
-          </div>
-        </div>
-
-        <!-- Sakia -->
-        <div class="team-card card">
-          <div class="avatar">Sa</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Sakia</strong> <span class="role-badge">SEO</span>
-            </div>
-            <div style="color:var(--color-muted)">SEO & Content Strategy — meta, schema, sitemap and alt text.</div>
-          </div>
-        </div>
-
-        <!-- Abiroo -->
-        <div class="team-card card">
-          <div class="avatar">A</div>
-          <div>
-            <div style="display:flex; gap:.5rem; align-items:center">
-              <strong>Abiroo</strong> <span class="role-badge">DevOps</span>
-            </div>
-            <div style="color:var(--color-muted)">DevOps & Deployment — hosting, CI/CD and performance tuning.</div>
+        <div class="contact">
+          <div><strong>Repository:</strong> ictsm-trade-website</div>
+          <div style="color: var(--muted); font-size: 14px;">
+            Keep issues for bugs, use PRs for content/feature changes, and tag releases for versioning.
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- RESOURCES -->
-    <section id="resources" class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">Resources & Downloads</h2>
-        <div style="color:var(--color-muted)">Notes, cheat sheets and sample circuit diagrams</div>
-      </div>
-
-      <div class="resource-grid">
-        <div class="card">
-          <h4>Basics of Electricity — Cheat Sheet</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Key formulas, safety rules, and measurement tips.</p>
-          <div style="display:flex; gap:.5rem; margin-top:.5rem">
-            <button class="btn secondary" onclick="downloadSyllabus()">Download</button>
-            <button class="btn" onclick="alert('Open resource preview (placeholder)')">Preview</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h4>Lab Safety Checklist</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Essential lab safety and grounding guidelines.</p>
-        </div>
-
-        <div class="card">
-          <h4>Sample Wiring Diagrams</h4>
-          <p style="margin:.35rem 0; color:var(--color-muted)">Simplified diagrams for basic setups and common faults.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="container" data-aos="fade-up">
-      <div class="section-header">
-        <h2 class="section-title">Contact / Apply</h2>
-        <div style="color:var(--color-muted)">Get in touch with admissions or join the course</div>
-      </div>
-
-      <div class="card" style="padding:1rem">
-        <div class="contact-grid">
-          <form id="contact-form" onsubmit="submitContactForm(event)" aria-label="Contact form">
-            <div style="display:grid; gap:.6rem; grid-template-columns: 1fr 1fr">
-              <input class="input" type="text" name="name" placeholder="Your name" required aria-required="true" />
-              <input class="input" type="email" name="email" placeholder="Email address" required aria-required="true" />
-            </div>
-            <input class="input" type="text" name="subject" placeholder="Subject" style="margin-top:.6rem" />
-            <textarea name="message" placeholder="Message" required style="margin-top:.6rem"></textarea>
-            <div style="display:flex; gap:.5rem; margin-top:.6rem">
-              <button type="submit" class="btn">Send message</button>
-              <button type="button" class="btn secondary" onclick="window.location.href='mailto:admissions@itianantnag.example?subject=ICTSM%20enquiry'">Email Admissions</button>
-            </div>
-            <div id="contact-feedback" style="margin-top:.6rem; color:var(--color-muted)"></div>
-          </form>
-
-          <div style="padding:1rem; border-radius:.9rem; background:var(--color-surface); box-shadow:var(--shadow-sm)">
-            <h4 style="margin-top:0">Campus</h4>
-            <p style="margin:.25rem 0; color:var(--color-muted)">ITI Anantnag — Training Centre, Anantnag</p>
-            <p style="margin:.25rem 0"><strong>Phone:</strong> +91 12345 67890</p>
-            <p style="margin:.25rem 0"><strong>Email:</strong> admissions@itianantnag.example</p>
-            <div style="margin-top:.6rem">
-              <small style="color:var(--color-muted)">Map & directions (placeholder)</small>
-              <div style="margin-top:.5rem; border-radius:.6rem; overflow:hidden; border:1px solid rgba(0,0,0,0.04)">
-                <div style="width:100%; height:150px; display:flex; align-items:center; justify-content:center; color:var(--color-muted)">Google Map embed placeholder</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
-    <div class="container footer-inner">
-      <div style="display:flex; gap:1rem; align-items:center; justify-content:space-between; width:100%; flex-wrap:wrap">
-        <div>
-          <strong>ITI Anantnag — ICTSM</strong><br>
-          <small style="color:var(--color-muted)">Information Communication Technology Systems & Maintenance</small>
-        </div>
-        <div style="display:flex; gap:.5rem; align-items:center">
-          <a href="#" aria-label="X / Twitter" title="X/Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M23 3s-1 .5-2 .5-2.5-.5-3 .5-1 1.5-1 1.5S17 6 16 7s-2 1-2 1l-3 1s-2.5 1-4 1c-1.5 0-3-1-3-1S3 9 2 10 1 12 2 13s2 1 3 1 3-.5 4-.5 3 .5 3 .5 2 .5 3 1 2.5 1 3 2 2 1 2 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a href="#" aria-label="Instagram" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></a>
-        </div>
-      </div>
-
-      <div class="copyright" style="margin-top:1rem; text-align:center; width:100%">
-        &copy; <span id="year"></span> ITI Anantnag — ICTSM. Developed by peer saqib.
+    <div class="container">
+      <div class="footer-meta">
+        Developed by Peer Saqib • ICTSM • ITI Anantnag • © <span id="year"></span>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <!-- GSAP (lift effects) -->
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
   <script>
-    // ====== Simple helpers & init ======
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const root = document.documentElement;
-    const initTheme = () => {
-      const stored = localStorage.getItem('site-theme');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
-      const theme = stored || (prefersDark ? 'dark' : 'light');
-      setTheme(theme);
-    };
-    function setTheme(t){
-      if(t === 'dark'){
-        root.setAttribute('data-theme','dark');
-        themeToggle.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Light';
-        themeToggle.setAttribute('aria-pressed', 'true');
-      } else {
-        root.setAttribute('data-theme','');
-        themeToggle.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v1M12 20v1M4.2 4.2l.7.7M18.1 18.1l.7.7M1 12h1M22 12h1M4.2 19.8l.7-.7M18.1 5.9l.7-.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Dark';
-        themeToggle.setAttribute('aria-pressed', 'false');
-      }
-      localStorage.setItem('site-theme', t);
-      document.querySelector('header').setAttribute('data-theme', root.getAttribute('data-theme'));
-    }
-    themeToggle.addEventListener('click', () => {
-      const current = localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light';
-      setTheme(current === 'dark' ? 'light' : 'dark');
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.style.display === 'flex';
+      mobileMenu.style.display = isOpen ? 'none' : 'flex';
     });
-    initTheme();
 
-    // Initialize AOS
+    // AOS init
     AOS.init({
-      duration: 650,
-      once: false,
-      mirror: false,
-      anchorPlacement: 'top-bottom',
-      offset: 80
+      duration: 700,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 80,
     });
 
-    // GSAP hero animation for "ENGG."
-    window.addEventListener('load', () => {
-      try {
-        // animate the stroke-to-fill for .engg .fill
-        const enggFill = document.getElementById('engg-fill');
-        gsap.fromTo(enggFill, {width: '0%'}, {width: '100%', duration: 1, ease: 'power2.out', delay: .4});
-        // subtle bounce on the outline
-        gsap.fromTo('#engg', {y: 12, scale: .98}, {y:0, scale:1, duration: .8, ease:'elastic.out(1, 0.6)', delay: .9});
-      } catch(e){
-        // fallback no animation
-      }
-    });
-
-    // Hamburger toggle
-    const burger = document.getElementById('burger');
-    const mobileNav = document.getElementById('mobile-nav');
-    burger.addEventListener('click', () => {
-      const expanded = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!expanded));
-      if(!expanded){
-        mobileNav.style.display = 'block';
-      } else {
-        mobileNav.style.display = 'none';
-      }
-    });
-
-    // Active nav highlighting using IntersectionObserver
-    const sections = document.querySelectorAll('main section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = entry.target.id;
-        const link = document.querySelectorAll('.nav-link[data-target="'+id+'"], .nav-link[href="#'+id+'"]');
-        if(entry.isIntersecting){
-          document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-          link.forEach(l => l.classList.add('active'));
+    // GSAP lift on scroll
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.card').forEach((card) => {
+      gsap.from(card, {
+        y: 18,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
         }
       });
-    }, {root: null, rootMargin: '0px 0px -40% 0px', threshold: 0.15});
-    sections.forEach(s => observer.observe(s));
+    });
 
-    // Smooth scroll for top nav clicks
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', (e)=>{
-        const href = link.getAttribute('href') || link.dataset.target;
-        if(href && href.startsWith('#')){
+    // Section highlighting in navbar
+    const sections = ['home', 'about', 'syllabus', 'roles', 'resources', 'contact'];
+    const linkSets = [
+      ...document.querySelectorAll('#navLinks a'),
+      ...document.querySelectorAll('#mobileMenu a')
+    ];
+
+    const observers = sections.map(id => {
+      const el = document.getElementById(id);
+      return new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            linkSets.forEach(a => {
+              if (a.getAttribute('href') === '#' + id) a.classList.add('active');
+              else a.classList.remove('active');
+            });
+          }
+        });
+      }, { rootMargin: '-60% 0px -35% 0px', threshold: 0.1 });
+    });
+
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el) observers[i].observe(el);
+    });
+
+    // Smooth scroll
+    linkSets.forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (href && href.startsWith('#')) {
           e.preventDefault();
-          const id = href.replace('#','');
-          const el = document.getElementById(id);
-          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-          // close mobile nav on selection
-          if(window.innerWidth < 900) {
-            mobileNav.style.display = 'none';
-            burger.setAttribute('aria-expanded','false');
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            mobileMenu.style.display = 'none';
           }
         }
       });
     });
-
-    // Contact form submit (dummy / sample)
-    function submitContactForm(e){
-      e.preventDefault();
-      const form = e.target;
-      const data = Object.fromEntries(new FormData(form).entries());
-      document.getElementById('contact-feedback').textContent = 'Sending...';
-      // Simple simulation of submit - in production, POST to your backend or serverless endpoint
-      setTimeout(()=>{
-        document.getElementById('contact-feedback').textContent = 'Thanks, your message has been received. We will contact you soon.';
-        form.reset();
-      }, 700);
-    }
-
-    // Download syllabus: generate a simple text/pdf blob for download
-    function downloadSyllabus(){
-      const text = `
-ITI Anantnag — ICTSM
-Syllabus: Basics of Electricity (4 weeks)
-
-Week 1: Voltage, Current, Resistance — Ohm's Law
- - Lab: Multimeter practice, series circuit on breadboard
-Week 2: Series & Parallel, Power (P = VI)
- - Lab: Build circuits, measure power
-Week 3: AC vs DC, capacitors & inductors
- - Lab: Observe AC waveform, DC supply usage
-Week 4: Tools, soldering, grounding & safety
- - Lab: Soldering, safety checklist, practical test
-
-Developed by peer saqib
-      `;
-      const blob = new Blob([text], {type:'text/plain'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'ICTSM_Basics_of_Electricity_Syllabus.txt';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    // expose for buttons
-    window.downloadSyllabus = downloadSyllabus;
-
-    // Tiny accessibility: focus visible for keyboard users
-    (function () {
-      const handleFirstTab = (e) => {
-        if (e.key === 'Tab') {
-          document.body.classList.add('user-is-tabbing');
-          window.removeEventListener('keydown', handleFirstTab);
-        }
-      };
-      window.addEventListener('keydown', handleFirstTab);
-    })();
-
-    // Reduce motion toggle: respect prefers-reduced-motion already via CSS media query.
   </script>
+
+  <!--
+    Sources:
+    [1] INFORMATION & COMMUNICATION TECHNOLOGY SYSTEM MAINTENANCE (CTS, NSQF-4, Revised Mar 2023), Directorate General of Training, Ministry of Skill Development & Entrepreneurship — cstaricalcutta.gov.in
+    [2] BharatSkills — ICTSM study materials (Trade Theory/Practical, WCS, Mock Tests)
+    [3] DVET Mumbai — I&CTSM skills acquired overview
+  -->
 </body>
 </html>
