@@ -1,37 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    ICTSM Trade Website — Repository: ictsm-trade-website
-    Built to be: clean, spacious, readable at night, responsive (phone/tablet/laptop/desktop),
-    using Flexbox/Grid, fluid layouts, sticky navbar, hamburger menu, section highlighting,
-    reusable cards/components, subtle rounded shadows, AOS (fade/slide), GSAP (lift on scroll),
-    and a bold welcome banner. Developed by Peer Saqib.
-
-    Fonts: Poppins, Inter, Roboto, SF Pro (via system stack & Google Fonts)
-    Color palette (dark-friendly, with good contrast):
-      - Base: #0f172a (slate-900)
-      - Surface: #111827 (gray-900)
-      - Card: #1f2937 (gray-800)
-      - Text: #e5e7eb (gray-200)
-      - Muted: #94a3b8 (slate-400)
-      - Primary: #38bdf8 (sky-400)
-      - Primary-strong: #0ea5e9 (sky-500)
-      - Accent: #a78bfa (violet-400)
-      - Success: #22c55e (green-500)
-
-    NOTE: For React builds, swap animations to Framer Motion. In this vanilla HTML version, AOS + GSAP are used.
-  -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="ITI Anantnag • ICTSM (Information & Communication Technology System Maintenance) trade website: syllabus, roles, resources, and contact." />
   <title>ICTSM • ITI Anantnag</title>
 
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 
-  <!-- AOS (Animate On Scroll) -->
+  <!-- AOS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
@@ -42,645 +19,195 @@
       --text: #e5e7eb;
       --muted: #94a3b8;
       --primary: #38bdf8;
-      --primary-strong: #0ea5e9;
       --accent: #a78bfa;
-      --success: #22c55e;
-
       --radius: 14px;
       --shadow: 0 10px 30px rgba(0,0,0,0.35);
-      --shadow-soft: 0 6px 18px rgba(0,0,0,0.28);
-      --maxw: 1200px;
-      --spacing-1: clamp(8px, 1vw, 14px);
-      --spacing-2: clamp(14px, 2vw, 22px);
-      --spacing-3: clamp(18px, 3vw, 36px);
-      --spacing-4: clamp(24px, 4vw, 52px);
     }
-
-    /* Global reset + typography */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: Inter, Poppins, Roboto, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 10% 10%, #0b1228 0%, var(--bg) 60%, #0a0f22 100%);
+      font-family: Inter, Poppins, Roboto, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { color: var(--primary-strong); }
-
-    .container {
-      width: 100%;
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 var(--spacing-2);
-    }
-
-    /* Sticky Navbar */
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 1000;
-      backdrop-filter: saturate(140%) blur(10px);
-      background: rgba(17, 24, 39, 0.6);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-    }
-    .nav-inner {
+      background: rgba(17,24,39,0.8);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: var(--spacing-2);
-      padding: var(--spacing-2) 0;
-    }
-    .brand {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 700; letter-spacing: 0.2px;
-    }
-    .brand .logo {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: var(--shadow-soft);
-    }
-    .nav-links {
-      display: flex; align-items: center; gap: var(--spacing-2);
+      align-items: center;
+      z-index: 1000;
     }
     .nav-links a {
-      padding: 10px 14px;
-      border-radius: 10px;
+      margin: 0 10px;
       color: var(--text);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
     }
-    .nav-links a.active {
-      background: rgba(56, 189, 248, 0.16);
+    .nav-links a:hover {
+      background: rgba(56,189,248,0.2);
       color: var(--primary);
-      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
     }
-    .hamburger {
-      display: none;
-      width: 36px; height: 36px; border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(17,24,39,0.4);
-      color: var(--text);
-      align-items: center; justify-content: center;
-    }
-    .hamburger:hover { border-color: rgba(56, 189, 248, 0.6); color: var(--primary); }
-
-    /* Mobile menu */
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      padding: var(--spacing-2);
-      gap: 10px;
-      background: rgba(17,24,39,0.6);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-    }
-    .mobile-menu a {
-      padding: 12px;
-      border-radius: 10px;
-      color: var(--text);
-      background: rgba(31,41,55,0.6);
-      border: 1px solid rgba(148,163,184,0.25);
-    }
-    .mobile-menu a.active { border-color: rgba(56,189,248,0.6); color: var(--primary); }
-
-    /* Hero Banner */
     .hero {
-      position: relative;
-      padding: var(--spacing-4) 0 var(--spacing-4);
-      overflow: hidden;
-    }
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: var(--spacing-3);
-      align-items: center;
-    }
-    .hero-card {
-      background: linear-gradient(180deg, rgba(31,41,55,0.85), rgba(17,24,39,0.85));
-      border: 1px solid rgba(148,163,184,0.22);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: var(--spacing-3);
+      padding: 60px 20px;
+      text-align: center;
     }
     .hero h1 {
-      font-family: Poppins, Inter, Roboto, sans-serif;
-      font-weight: 800;
-      margin: 0 0 10px;
-      font-size: clamp(32px, 5vw, 62px);
-      letter-spacing: -0.02em;
+      font-size: 2.5rem;
+      font-weight: 700;
     }
     .hero p {
       color: var(--muted);
-      margin-top: 8px;
+      max-width: 600px;
+      margin: 0 auto;
     }
-    .hero-cta {
-      display: flex; flex-wrap: wrap; gap: 12px;
-      margin-top: var(--spacing-2);
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.3);
-      background: rgba(31,41,55,0.6);
-      color: var(--text);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(56,189,248,0.15);
-      border-color: rgba(56,189,248,0.5);
-    }
-    .btn.primary {
-      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(167,139,250,0.2));
-      border: 1px solid rgba(56,189,248,0.5);
-      color: var(--primary);
-    }
-
-    /* Section structure */
     section {
-      padding: var(--spacing-4) 0;
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
     }
     .section-title {
-      font-family: Poppins, Inter, Roboto, sans-serif;
+      font-size: 1.8rem;
       font-weight: 700;
-      font-size: clamp(24px, 3.2vw, 36px);
-      margin-bottom: var(--spacing-2);
-    }
-    .section-lead {
-      color: var(--muted);
-      max-width: 900px;
-      margin-bottom: var(--spacing-3);
-    }
-
-    /* Cards (reusable) */
-    .grid {
-      display: grid;
-      gap: var(--spacing-2);
-    }
-    .grid.cols-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .grid.cols-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px) {
-      .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .hamburger { display: inline-flex; }
+      margin-bottom: 20px;
     }
     .card {
       background: var(--card);
-      border: 1px solid rgba(148,163,184,0.22);
       border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      padding: var(--spacing-2);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
     }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-    .card h3 {
-      font-weight: 600;
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-    .card p { color: var(--muted); margin: 0; }
-
-    /* Roles list */
-    .roles {
-      display: grid;
-      gap: var(--spacing-2);
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    @media (max-width: 640px) { .roles { grid-template-columns: 1fr; } }
-    .role-item {
-      background: var(--card);
-      border: 1px solid rgba(148,163,184,0.22);
-      border-radius: var(--radius);
-      padding: var(--spacing-2);
-      box-shadow: var(--shadow-soft);
-      display: flex; align-items: flex-start; gap: 16px;
-    }
-    .role-badge {
-      min-width: 42px; height: 42px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: var(--shadow-soft);
-    }
-
-    /* Footer */
     footer {
-      padding: var(--spacing-3) 0 var(--spacing-4);
-      background: rgba(17,24,39,0.6);
-      border-top: 1px solid rgba(148,163,184,0.2);
-      margin-top: var(--spacing-4);
-    }
-    .footer-grid {
-      display: grid;
-      gap: var(--spacing-2);
-      grid-template-columns: 1.2fr 0.8fr;
-    }
-    @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; } }
-    .footer-meta {
+      text-align: center;
+      padding: 20px;
+      background: var(--surface);
       color: var(--muted);
-      font-size: 14px;
-    }
-    .contact {
-      display: flex; flex-direction: column; gap: 8px;
-      background: var(--card);
-      border: 1px solid rgba(148,163,184,0.22);
-      border-radius: var(--radius);
-      padding: var(--spacing-2);
-      box-shadow: var(--shadow-soft);
-    }
-    .contact a.whatsapp {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(34, 197, 94, 0.15);
-      color: #86efac;
-      border: 1px solid rgba(34, 197, 94, 0.4);
-    }
-    .contact a.whatsapp:hover { transform: translateY(-1px); }
-
-    /* Section highlight on scroll (active link) */
-    .highlight-nav a.active {
-      background: rgba(56, 189, 248, 0.16);
-      color: var(--primary);
-      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
     }
 
-    /* ENGG-like subtle animated label */
-    .engg-tag {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(167, 139, 250, 0.18);
-      border: 1px solid rgba(167, 139, 250, 0.4);
-      color: #d6bcfa;
-      font-weight: 600;
-      letter-spacing: 1.2px;
-      animation: floaty 4s ease-in-out infinite;
+    /* Dropdown welcome banner */
+    .welcome-banner {
+      position: fixed;
+      top: -120px;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      border-radius: 0 0 16px 16px;
+      z-index: 2000;
+      transition: top 0.8s ease-in-out;
     }
-    @keyframes floaty {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-      100% { transform: translateY(0); }
+    .welcome-banner.show {
+      top: 0;
+    }
+    .welcome-banner h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .welcome-banner p {
+      margin: 6px 0 0;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
 
+  <!-- Dropdown Welcome Banner -->
+  <div id="welcomeBanner" class="welcome-banner">
+    <h2>👋 Welcome ICTSM Website</h2>
+    <p>Developed by <strong>Peer Saqib</strong></p>
+  </div>
+
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="container nav-inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <span>ICTSM • ITI Anantnag</span>
-      </div>
-      <div class="nav-links highlight-nav" id="navLinks">
-        <a href="#home" class="active">Home</a>
-        <a href="#about">About ICTSM</a>
-        <a href="#syllabus">Syllabus</a>
-        <a href="#roles">Team</a>
-        <a href="#resources">Resources</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu">☰</button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About ICTSM</a>
+    <div class="brand">ICTSM • ITI Anantnag</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
       <a href="#syllabus">Syllabus</a>
-      <a href="#roles">Team</a>
-      <a href="#resources">Resources</a>
+      <a href="#team">Team</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
 
-  <!-- Hero Banner -->
+  <!-- Hero -->
   <header id="home" class="hero">
-    <div class="container hero-inner" data-aos="fade-up">
-      <div class="hero-card">
-        <div class="engg-tag">ENGG.</div>
-        <h1><strong>Welcome ICTSM website</strong></h1>
-        <p>
-          Developed by Peer Saqib. Clean, responsive, and night-friendly — built for Phone, Tablet, Laptop, and big Desktop screens with fluid layouts, Grid/Flexbox, and smooth motion.
-        </p>
-        <div class="hero-cta">
-          <a class="btn primary" href="#about">Explore ICTSM</a>
-          <a class="btn" href="#syllabus">View Syllabus</a>
-          <a class="btn" href="#roles">Meet the Team</a>
-        </div>
-      </div>
-      <div class="hero-card" data-aos="fade-left">
-        <h3 style="margin-top:0;">Highlights</h3>
-        <ul style="color: var(--muted); padding-left: 18px; margin-top: 8px;">
-          <li>Lots of white space, simple fonts (Poppins, Inter, Roboto, SF Pro), consistent palette</li>
-          <li>Rounded & soft shadows, professional look, better readability at night</li>
-          <li>Sticky navbar, hamburger menu, section highlighting</li>
-          <li>AOS fade-in, GSAP lift effects, reusable cards and components</li>
-          <li>Banner on open: “Welcome ICTSM website” + “Developed by Peer Saqib”</li>
-        </ul>
-      </div>
-    </div>
+    <h1>Welcome to ICTSM Trade Website</h1>
+    <p>Information & Communication Technology System Maintenance — ITI Anantnag</p>
   </header>
 
-  <!-- About ICTSM -->
+  <!-- About -->
   <section id="about">
-    <div class="container" data-aos="fade-up">
-      <h2 class="section-title">Information & Communication Technology System Maintenance</h2>
-      <p class="section-lead">
-        ICTSM is a two-year engineering trade under the Craftsmen Training Scheme (CTS), NSQF Level 4, focusing on installation, testing, maintenance, and repair of ICT systems and peripherals. It includes trade theory, trade practicals, assessment criteria, and a structured syllabus aligned to the IT & ITeS sector.
-      </p>
-      <div class="grid cols-3">
-        <div class="card">
-          <h3>Training system</h3>
-          <p>
-            The curriculum provides competency-based modules, learning outcomes, assessment criteria, and detailed tool/equipment lists to ensure practical readiness across ICT hardware, software, and diagnostics.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Job roles</h3>
-          <p>
-            Graduates can install, operate, test, and maintain electronic equipment, computers, peripherals, and measuring instruments, supporting ICT infrastructure in varied environments.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Study material</h3>
-          <p>
-            BharatSkills hosts ICTSM trade theory, trade practicals (1st & 2nd year), workshop calculation & science, mock tests, and e-learning resources mapped to the latest syllabus versions.
-          </p>
-        </div>
-      </div>
+    <h2 class="section-title">About ICTSM</h2>
+    <div class="card">
+      <p>ICTSM focuses on installation, testing, maintenance, and repair of ICT systems and peripherals. It includes trade theory, practicals, and structured syllabus aligned to IT & ITeS sector.</p>
     </div>
   </section>
 
-  <!-- Syllabus (with basics of electricity portion) -->
+  <!-- Syllabus -->
   <section id="syllabus">
-    <div class="container" data-aos="fade-up">
-      <h2 class="section-title">Syllabus overview</h2>
-      <p class="section-lead">
-        The ICTSM syllabus includes foundational electrical concepts, electronic components, PC assembly and troubleshooting, networking basics, operating systems, preventive maintenance, diagnostics, and safety practices, structured over two years with defined learning outcomes and assessments.
-      </p>
-
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>Basics of electricity</h3>
-          <p>
-            Core topics commonly covered include safety, units and measurements, Ohm’s law, series/parallel circuits, power and energy, AC/DC fundamentals, wiring best practices, and use of basic instruments (multimeter). These underpin later modules in electronics, PC hardware, and system maintenance.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Trade theory & practical</h3>
-          <p>
-            Progressive modules blend theory with hands-on tasks across hardware assembly, OS installation, preventive maintenance, peripherals, networking, and troubleshooting, supported by structured assessment criteria and tool/equipment lists.
-          </p>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top: var(--spacing-2);" data-aos="fade-in">
-        <h3>Suggested structure for your site</h3>
-        <p style="color: var(--muted);">
-          Year-wise pages with topics, outcomes, practical tasks, and checklists aligned to official ICTSM curriculum ensure clarity and consistency for learners and admins. You can deep-link to BharatSkills materials for detailed modules and practice.
-        </p>
-      </div>
+    <h2 class="section-title">Syllabus</h2>
+    <div class="card">
+      <h3>Basics of Electricity</h3>
+      <p>Safety, Ohm’s law, series/parallel circuits, AC/DC fundamentals, wiring practices, and use of instruments like multimeter.</p>
     </div>
   </section>
 
-  <!-- Team roles -->
-  <section id="roles">
-    <div class="container" data-aos="fade-up">
-      <h2 class="section-title">Team roles & responsibilities</h2>
-      <p class="section-lead">
-        Clear roles keep the site reliable, up-to-date, and welcoming. Here’s a proposed structure mapped to your classmates.
-      </p>
-      <div class="roles">
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Peer Saqib — Lead developer & site maintainer</h3>
-            <p><strong>Scope:</strong> Codebase ownership, CI/CD, performance, accessibility, animations, responsive layouts, release notes, and repository governance.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Saqib (Admin) — Content admin & compliance</h3>
-            <p><strong>Scope:</strong> Homepage announcements, syllabus updates, exam schedules, content QA, alignment with ICTSM CTS guidelines, and moderation.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Hamid — Resources & documentation lead</h3>
-            <p><strong>Scope:</strong> Collect study materials, practical guides, lab checklists, and link BharatSkills & official curriculum resources.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Huxaif — Design & UI/UX</h3>
-            <p><strong>Scope:</strong> Visual hierarchy, typography, spacing, color consistency, components library, and night readability audits.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Shakif — QA & accessibility</h3>
-            <p><strong>Scope:</strong> Cross-device testing, media queries, keyboard navigation, contrast checks, and bug tracking.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Mushraf — Backend & forms</h3>
-            <p><strong>Scope:</strong> Contact form handling, mailing services, data validation, performance logs, secure endpoints.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Irfan — DevOps & deployment</h3>
-            <p><strong>Scope:</strong> Hosting, SSL, caching/CDN, uptime monitoring, backups, and environment configs.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Sheebu — Events & announcements</h3>
-            <p><strong>Scope:</strong> Notices, lab schedules, workshops, and timely homepage banners.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Sakia — Social & outreach</h3>
-            <p><strong>Scope:</strong> Community updates, WhatsApp broadcast, social post assets, and enquiries coordination.</p>
-          </div>
-        </div>
-        <div class="role-item">
-          <div class="role-badge" aria-hidden="true"></div>
-          <div>
-            <h3>Abiroo — Content editor</h3>
-            <p><strong>Scope:</strong> Proofreading, syllabus summaries, glossary, and student guides.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Resources -->
-  <section id="resources">
-    <div class="container" data-aos="fade-up">
-      <h2 class="section-title">Resources & study materials</h2>
-      <p class="section-lead">
-        Use official CTS curriculum and BharatSkills modules for trade theory, trade practicals, workshop calculation & science, and mock tests to prepare effectively.
-      </p>
-      <div class="grid cols-3">
-        <div class="card">
-          <h3>CTS curriculum (ICTSM)</h3>
-          <p>Curriculum PDF: duration, learning outcomes, assessment criteria, trade tools, and syllabus breakdown.</p>
-        </div>
-        <div class="card">
-          <h3>BharatSkills portal</h3>
-          <p>Trade Theory & Practical (Year 1 & 2), e-learning, question banks, and mock tests.</p>
-        </div>
-        <div class="card">
-          <h3>Skills acquired</h3>
-          <p>Install, test, repair electronic equipment, PCs, peripherals; operate and maintain measuring instruments.</p>
-        </div>
-      </div>
-    </div>
+  <!-- Team -->
+  <section id="team">
+    <h2 class="section-title">Team Roles</h2>
+    <div class="card"><strong>Peer Saqib:</strong> Lead Developer</div>
+    <div class="card"><strong>Saqib (Admin):</strong> Content Admin</div>
+    <div class="card"><strong>Hamid:</strong> Resources Lead</div>
+    <div class="card"><strong>Huxaif:</strong> UI/UX Designer</div>
+    <div class="card"><strong>Shakif:</strong> QA & Accessibility</div>
+    <div class="card"><strong>Mushraf:</strong> Backend</div>
+    <div class="card"><strong>Irfan:</strong> DevOps</div>
+    <div class="card"><strong>Sheebu:</strong> Events</div>
+    <div class="card"><strong>Sakia:</strong> Outreach</div>
+    <div class="card"><strong>Abiroo:</strong> Content Editor</div>
   </section>
 
   <!-- Contact -->
   <section id="contact">
-    <div class="container" data-aos="fade-up">
-      <h2 class="section-title">Contact</h2>
-      <p class="section-lead">Reach out for updates, contributions, or queries about the ICTSM trade website.</p>
-      <div class="footer-grid">
-        <div class="contact">
-          <div><strong>Email:</strong> <a href="mailto:imshahsaqib@gmail.com">imshahsaqib@gmail.com</a></div>
-          <a class="whatsapp" href="https://wa.me/9622959387" target="_blank" rel="noopener">
-            <span>WhatsApp</span> • <strong>9622959387</strong>
-          </a>
-          <div style="color: var(--muted); font-size: 14px;">
-            Banner: “Welcome ICTSM website” • “Developed by Peer Saqib”
-          </div>
-        </div>
-        <div class="contact">
-          <div><strong>Repository:</strong> ictsm-trade-website</div>
-          <div style="color: var(--muted); font-size: 14px;">
-            Keep issues for bugs, use PRs for content/feature changes, and tag releases for versioning.
-          </div>
-        </div>
-      </div>
+    <h2 class="section-title">Contact</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:imshahsaqib@gmail.com">imshahsaqib@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/9622959387">9622959387</a></p>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <div class="footer-meta">
-        Developed by Peer Saqib • ICTSM • ITI Anantnag • © <span id="year"></span>
-      </div>
-    </div>
+    Developed by Peer Saqib • © <span id="year"></span>
   </footer>
 
-  <!-- GSAP (lift effects) -->
-  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <!-- AOS -->
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
   <script>
-    // Year
+    AOS.init();
+
+    // Show dropdown banner
+    window.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('welcomeBanner');
+      setTimeout(() => {
+        banner.classList.add('show');
+      }, 500);
+      // Auto-hide after 5s
+      setTimeout(() => {
+        banner.classList.remove('show');
+      }, 5500);
+    });
+
+    // Year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Mobile menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.style.display === 'flex';
-      mobileMenu.style.display = isOpen ? 'none' : 'flex';
-    });
-
-    // AOS init
-    AOS.init({
-      duration: 700,
-      easing: 'ease-out-cubic',
-      once: true,
-      offset: 80,
-    });
-
-    // GSAP lift on scroll
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.card').forEach((card) => {
-      gsap.from(card, {
-        y: 18,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-        }
-      });
-    });
-
-    // Section highlighting in navbar
-    const sections = ['home', 'about', 'syllabus', 'roles', 'resources', 'contact'];
-    const linkSets = [
-      ...document.querySelectorAll('#navLinks a'),
-      ...document.querySelectorAll('#mobileMenu a')
-    ];
-
-    const observers = sections.map(id => {
-      const el = document.getElementById(id);
-      return new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            linkSets.forEach(a => {
-              if (a.getAttribute('href') === '#' + id) a.classList.add('active');
-              else a.classList.remove('active');
-            });
-          }
-        });
-      }, { rootMargin: '-60% 0px -35% 0px', threshold: 0.1 });
-    });
-
-    sections.forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (el) observers[i].observe(el);
-    });
-
-    // Smooth scroll
-    linkSets.forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            mobileMenu.style.display = 'none';
-          }
-        }
-      });
-    });
   </script>
-
-  <!--
-    Sources:
-    [1] INFORMATION & COMMUNICATION TECHNOLOGY SYSTEM MAINTENANCE (CTS, NSQF-4, Revised Mar 2023), Directorate General of Training, Ministry of Skill Development & Entrepreneurship — cstaricalcutta.gov.in
-    [2] BharatSkills — ICTSM study materials (Trade Theory/Practical, WCS, Mock Tests)
-    [3] DVET Mumbai — I&CTSM skills acquired overview
-  -->
 </body>
 </html>
